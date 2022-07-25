@@ -71,7 +71,7 @@ repository. Shell commands, if any, are run from the root of the repository.
             })();
         </script>
 
-- Constructor: `ZnJsCaptcha(OpenTypeJs, config)`.
+- Constructor: `ZnJsCaptcha(OpenTypeJs, config)`
     + `OpenTypeJs`: Object returned by OpenType.js library.
     + `config`: Configuration object used for generating CAPTCHA.
 
