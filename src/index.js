@@ -22,6 +22,9 @@
  *         let captcha = await captchaGenerator.generate();
  *     })();
  *
+ * ComicBook Smash font in assets/Comismsh.ttf is attributed to Graham Meade (GemFonts Free Font)
+ * and free for use, see http://moorstation.org/typoasis/designers/gemnew/home.htm for more info.
+ *
  * @link Adapted from https://github.com/produck/svg-captcha
  * @link Uses https://github.com/opentypejs/opentype.js
  * @link http://www.captcha.net/
