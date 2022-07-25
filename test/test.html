@@ -1,11 +1,32 @@
-<script src="../node_modules/opentype.js/dist/opentype.min.js"></script>
-<script src="../src/index.js"></script>
-<script>
-    // Need to run on web server in order to read the font file
-    (async function () {
-        let captchaGenerator = ZnJsCaptcha(opentype, { fontPath: '../assets/Comismsh.ttf' });
-        let captcha = await captchaGenerator.generate();
-        console.log('Result: ' + captcha.result);
-        document.write('<img src="data:image/svg+xml;utf8,' + encodeURIComponent(captcha.data) + '">');
-    })();
-</script>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ZnJsCaptcha Demo</title>
+  </head>
+
+  <body>
+    <img class="js-captcha-image" src="">
+    <div class="js-result"></div>
+
+    <script src="../node_modules/opentype.js/dist/opentype.min.js"></script>
+    <script src="../src/index.js"></script>
+    <script>
+        // Need to run on web server in order to read the font file
+        (async function () {
+            let startTime = Date.now();
+            let captchaGenerator = ZnJsCaptcha(opentype, { fontPath: '../assets/Marius.ttf' });
+            let captcha = await captchaGenerator.generate();
+
+            document.querySelector('.js-captcha-image').src =
+                'data:image/svg+xml;utf8,' + encodeURIComponent(captcha.data);
+
+            document.querySelector('.js-result').innerHTML =
+                `Generated Math CAPTCHA with result ${captcha.result} in ` + (Date.now() - startTime) + 'ms. '
+                + 'Saved to tmp.svg and tmp.html.';
+        })();
+    </script>
+  </body>
+</html>
+

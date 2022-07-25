@@ -9,8 +9,8 @@
  *             // Need to run on web server in order to read the font file
  *             let captchaGenerator = ZnJsCaptcha(opentype, { fontPath: 'http://localhost/assets/Comismsh.ttf' });
  *             let captcha = await captchaGenerator.generate();
- *             console.log('Result: ' + captcha.result);
  *             document.write('<img src="data:image/svg+xml;utf8,' + encodeURIComponent(captcha.data) + '">');
+ *             console.log('Result: ' + captcha.result);
  *         })();
  *     </script>
  *
@@ -22,10 +22,8 @@
  *         let captcha = await captchaGenerator.generate();
  *     })();
  *
- * ComicBook Smash font in assets/Comismsh.ttf is attributed to Graham Meade (GemFonts Free Font)
- * and free for use, see http://moorstation.org/typoasis/designers/gemnew/home.htm for more info.
- *
  * @link Adapted from https://github.com/produck/svg-captcha
+ *     and https://github.com/zionsg/ZnZend/blob/master/src/Captcha/Service/MathQuestionService.php
  * @link Uses https://github.com/opentypejs/opentype.js
  * @link http://www.captcha.net/
  * @returns {function(OpenTypeJs, Object): Object} Note that this returns not an
