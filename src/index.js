@@ -67,9 +67,11 @@
          */
         const self = {
             config: {
+                // Colors
                 colorBackground: '#ffffff',
                 colorForeground: '#000000',
 
+                // Font
                 fontPath: '../assets/Marius1.ttf',
                 fontSize: 50,
 
@@ -80,9 +82,11 @@
                 mathAddendMax: 9,
                 mathOperator: '+',
 
+                // No. of lines/dots to add to output SVG as noise
                 noiseLines: 10,
                 noiseDots: 1000,
 
+                // Dimensions of output SVG
                 outputWidth: 480,
                 outputHeight: 120,
             },

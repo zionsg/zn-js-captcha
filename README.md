@@ -27,11 +27,11 @@ repository. Shell commands, if any, are run from the root of the repository.
 - The difficulty level for solving the generated CAPTCHA is akin to a Level 3:
     + Level 1: Generate random text. User sees the shown text and keys in the
       shown text. Machine learning can easily be used to crack this.
-    + Level 2: Generate Math equation using numbers. User sees the shown text,
-      solves it and keys in the result.
-    + Level 3: Generate Math equation and spell out the numbers in English.
-      User sees the shown text, converts the words back to numbers, solves the
-      equation and keys in the result.
+    + Level 2: Generate random Math equation using numbers. User sees the shown
+      text, solves the equation and keys in the result.
+    + Level 3: Generate random Math equation and spell out the numbers in
+      English. User sees the shown text, converts the words back to numbers,
+      solves the equation and keys in the result.
 
 ## Font
 - The primary font bundled with this project in `assets/Marius1.ttf` is the
@@ -40,6 +40,7 @@ repository. Shell commands, if any, are run from the root of the repository.
   and irregular glyphs.
 
 ## Usage
+- See docblocks in `src/index.js` for detailed documentation.
 - Node.js:
 
         const OpenType = require('opentype.js');
@@ -69,6 +70,44 @@ repository. Shell commands, if any, are run from the root of the repository.
                 console.log('Result: ' + captcha.result);
             })();
         </script>
+
+- Constructor: `ZnJsCaptcha(OpenTypeJs, config)`.
+    + `OpenTypeJs`: Object returned by OpenType.js library.
+    + `config`: Configuration object used for generating CAPTCHA.
+
+            {
+                // Colors
+                colorBackground: '#ffffff',
+                colorForeground: '#000000',
+
+                // Font
+                fontPath: '../assets/Marius1.ttf',
+                fontSize: 50,
+
+                // In "2 + 3", 2 is the augend and 3 is the addend
+                mathAugendMin: 10,
+                mathAugendMax: 99,
+                mathAddendMin: 1,
+                mathAddendMax: 9,
+                mathOperator: '+',
+
+                // No. of lines/dots to add to output SVG as noise
+                noiseLines: 10,
+                noiseDots: 1000,
+
+                // Dimensions of output SVG
+                outputWidth: 480,
+                outputHeight: 120,
+            }
+
+- Public methods:
+    + `generate()`: Async function that returns an object when the Promise is
+      resolved:
+
+            {
+                data: '<svg xmlns="http://www.w3.org/2000/svg" width="30" height="10" viewBox="0,0,30,10"></svg>',
+                result: 28,
+            }
 
 ## Installation
 - This section is meant for developers.
