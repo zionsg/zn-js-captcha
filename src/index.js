@@ -99,7 +99,7 @@
          * Generate new CAPTCHA
          *
          * @public
-         * @returns {Promise<Object>} Example:
+         * @returns {Promise<Object>} E.g. (`data` is the SVG output and `result` is the answer to the Math equation):
          *     {
          *         data: '<svg xmlns="http://www.w3.org/2000/svg" width="30" height="10" viewBox="0,0,30,10"></svg>',
          *         result: 28,

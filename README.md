@@ -41,18 +41,25 @@ repository. Shell commands, if any, are run from the root of the repository.
 
 ## Usage
 - See docblocks in `src/index.js` for detailed documentation.
-- Node.js:
+- Node.js
+    + Run `npm install zn-js-captcha` to install the package.
+    + Sample code (assumes code is running at same directory level
+      as `node_modules`):
 
         const OpenType = require('opentype.js');
         const ZnJsCaptcha = require('zn-js-captcha');
         (async function () {
             let captchaGenerator = ZnJsCaptcha(OpenType, {
-                fontPath: __dirname + '/../assets/Marius1.ttf'
+                fontPath: __dirname + '/node_modules/zn-js-captcha/assets/Marius1.ttf'
             });
             let captcha = await captchaGenerator.generate();
         })();
 
-- In the browser:
+- In the browser
+    + Download this repository into your project directory either by cloning it
+      into a subfolder or using NPM to install it into `node_modules` subfolder.
+    + Sample code (assumes webpage is running same directory level as
+      subfolder):
 
         <script src="node_modules/opentype.js/dist/opentype.min.js"></script>
         <script src="node_modules/zn-js-captcha/src/index.js"></script>
@@ -60,7 +67,7 @@ repository. Shell commands, if any, are run from the root of the repository.
             (async function () {
                 // Need to run on web server in order to read the font file
                 let captchaGenerator = ZnJsCaptcha(opentype, {
-                    fontPath: 'http://localhost/assets/Marius1.ttf'
+                    fontPath: 'node_modules/zn-js-captcha/assets/Marius1.ttf'
                 });
                 let captcha = await captchaGenerator.generate();
 
@@ -102,7 +109,8 @@ repository. Shell commands, if any, are run from the root of the repository.
 
 - Public methods:
     + `generate()`: Async function that returns an object when the Promise is
-      resolved:
+      resolved (`data` is the SVG output and `result` is the answer to the
+      Math equation):
 
             {
                 data: '<svg xmlns="http://www.w3.org/2000/svg" width="30" height="10" viewBox="0,0,30,10"></svg>',
