@@ -179,100 +179,6 @@
         }
 
         /**
-         * Spell number in English
-         *
-         * Caters for 0 to 999,999,999.
-         *
-         * @private
-         * @link Adapted from https://github.com/zionsg/ZnZend/blob/master/src/Captcha/Service/MathQuestionService.php
-         * @param {int} number
-         * @returns {string} E.g.: 264073458 returns "two hundred and sixty-four million,
-         *     seventy-three thousand, four hundred and fifty-eight".
-         */
-        function spellNumber(number) {
-            let num = parseInt(number || 0).toString();
-
-            // Special case
-            if (0 === num) {
-                return 'zero';
-            }
-
-            // Index 0 not used. Non-empty place suffixes have ' ' in front to facilitate concatenation
-            let placeSuffix = [
-                '', '', '', ' hundred', ' thousand', ' thousand', ' thousand', ' million', ' million', ' million',
-            ];
-            let onesPrefix  = ['', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
-            let teensPrefix = [
-                'ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen',
-                'sixteen', 'seventeen', 'eighteen', 'nineteen',
-            ];
-            let tens = ['', '', 'twenty', 'thirty', 'forty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety'];
-
-            let ans = '';
-            let partAns = '';
-            let digit = 0;
-            let place = 0;
-            let prefix = '';
-            let nextDigit = '';
-            let nextTwoDigits = '';
-            while (num.length > 0) {
-                digit = parseInt(num.substr(0, 1));
-                place = num.length;
-                prefix = '';
-
-                // Parse number according to pronunciation types
-                if ([6, 9].includes(place)) { // 100 thousand, 100 million
-                    prefix = onesPrefix[digit] + ' hundred';
-                    nextTwoDigits = spellNumber(parseInt(num.substr(1, 2))); // process the next 2 digits
-                    if (nextTwoDigits !== 'zero') {
-                        prefix += ' and ' + nextTwoDigits;
-                    }
-
-                    partAns = prefix + placeSuffix[place];
-                    num = num.substr(3); // cut off the 3 leftmost digits
-                } else if ([2, 5, 8].includes(place)) { // 10, 10 thousand, 10 million
-                    nextDigit = parseInt(num.substr(1, 1));
-
-                    if (1 === digit) { // 10 to 19
-                        prefix = teensPrefix[nextDigit];
-                    } else if (digit > 1) {
-                        prefix = tens[digit];
-                        if (nextDigit !== 0) {
-                            prefix = tens[digit] + '-' + onesPrefix[nextDigit];
-                        }
-                    } else {
-                        prefix = '';
-                    }
-
-                    partAns = prefix + placeSuffix[place];
-                    num = num.substr(2); // cut off the 2 leftmost digits
-                } else if ([1, 3, 4, 7].includes(place)) { // 1, 1 hundred, 1 thousand, 1 million
-                    prefix = onesPrefix[digit];
-                    partAns = prefix + placeSuffix[place];
-                    num = num.substr(1); // cut off the leftmost digit
-                }
-
-                // Eliminate the redundant zeroes in front
-                if (num !== '') {
-                    while ('0' === num.substr(0, 1)) {
-                        num = num.substr(1); // cut off leftmost digit which is a zero
-                    }
-                }
-
-                // Concatenate the new part to the whole answer
-                if ('' === ans) {
-                    ans += partAns;
-                } else if (num.length > 0) {
-                    ans += ', ' + partAns;
-                } else {
-                    ans += ' and ' + partAns;
-                }
-            } // end while
-
-            return ans;
-        }
-
-        /**
          * Render dots for noise as SVG paths
          *
          * @private
@@ -380,6 +286,100 @@
             }
 
             return paths;
+        }
+
+        /**
+         * Spell number in English
+         *
+         * Caters for 0 to 999,999,999.
+         *
+         * @private
+         * @link Adapted from https://github.com/zionsg/ZnZend/blob/master/src/Captcha/Service/MathQuestionService.php
+         * @param {int} number
+         * @returns {string} E.g.: 264073458 returns "two hundred and sixty-four million,
+         *     seventy-three thousand, four hundred and fifty-eight".
+         */
+        function spellNumber(number) {
+            let num = parseInt(number || 0).toString();
+
+            // Special case
+            if (0 === num) {
+                return 'zero';
+            }
+
+            // Index 0 not used. Non-empty place suffixes have ' ' in front to facilitate concatenation
+            let placeSuffix = [
+                '', '', '', ' hundred', ' thousand', ' thousand', ' thousand', ' million', ' million', ' million',
+            ];
+            let onesPrefix  = ['', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
+            let teensPrefix = [
+                'ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen',
+                'sixteen', 'seventeen', 'eighteen', 'nineteen',
+            ];
+            let tens = ['', '', 'twenty', 'thirty', 'forty', 'fifty', 'sixty', 'seventy', 'eighty', 'ninety'];
+
+            let ans = '';
+            let partAns = '';
+            let digit = 0;
+            let place = 0;
+            let prefix = '';
+            let nextDigit = '';
+            let nextTwoDigits = '';
+            while (num.length > 0) {
+                digit = parseInt(num.substr(0, 1));
+                place = num.length;
+                prefix = '';
+
+                // Parse number according to pronunciation types
+                if ([6, 9].includes(place)) { // 100 thousand, 100 million
+                    prefix = onesPrefix[digit] + ' hundred';
+                    nextTwoDigits = spellNumber(parseInt(num.substr(1, 2))); // process the next 2 digits
+                    if (nextTwoDigits !== 'zero') {
+                        prefix += ' and ' + nextTwoDigits;
+                    }
+
+                    partAns = prefix + placeSuffix[place];
+                    num = num.substr(3); // cut off the 3 leftmost digits
+                } else if ([2, 5, 8].includes(place)) { // 10, 10 thousand, 10 million
+                    nextDigit = parseInt(num.substr(1, 1));
+
+                    if (1 === digit) { // 10 to 19
+                        prefix = teensPrefix[nextDigit];
+                    } else if (digit > 1) {
+                        prefix = tens[digit];
+                        if (nextDigit !== 0) {
+                            prefix = tens[digit] + '-' + onesPrefix[nextDigit];
+                        }
+                    } else {
+                        prefix = '';
+                    }
+
+                    partAns = prefix + placeSuffix[place];
+                    num = num.substr(2); // cut off the 2 leftmost digits
+                } else if ([1, 3, 4, 7].includes(place)) { // 1, 1 hundred, 1 thousand, 1 million
+                    prefix = onesPrefix[digit];
+                    partAns = prefix + placeSuffix[place];
+                    num = num.substr(1); // cut off the leftmost digit
+                }
+
+                // Eliminate the redundant zeroes in front
+                if (num !== '') {
+                    while ('0' === num.substr(0, 1)) {
+                        num = num.substr(1); // cut off leftmost digit which is a zero
+                    }
+                }
+
+                // Concatenate the new part to the whole answer
+                if ('' === ans) {
+                    ans += partAns;
+                } else if (num.length > 0) {
+                    ans += ', ' + partAns;
+                } else {
+                    ans += ' and ' + partAns;
+                }
+            } // end while
+
+            return ans;
         }
 
         // Initialization
