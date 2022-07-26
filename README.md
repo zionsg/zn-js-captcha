@@ -6,7 +6,7 @@ Generate Math [CAPTCHA](http://www.captcha.net/) offline in SVG, either client-s
 or server-side in Node.js. Uses [OpenType.js](https://github.com/opentypejs/opentype.js).
 
 This is adapted from the [svg-captcha](https://github.com/produck/svg-captcha) NPM package
-(which has not been maintained since 2019) and
+(which is using an outdated version of OpenType.js & has not been maintained since 2019) and
 [ZnZend MathQuestionService](https://github.com/zionsg/ZnZend/blob/master/src/Captcha/Service/MathQuestionService.php)
 which I coded in PHP some years back.
 
@@ -46,14 +46,14 @@ repository. Shell commands, if any, are run from the root of the repository.
     + Sample code (assumes code is running at same directory level
       as `node_modules`):
 
-        const OpenType = require('opentype.js');
-        const ZnJsCaptcha = require('zn-js-captcha');
-        (async function () {
-            let captchaGenerator = ZnJsCaptcha(OpenType, {
-                fontPath: __dirname + '/node_modules/zn-js-captcha/assets/Marius1.ttf'
-            });
-            let captcha = await captchaGenerator.generate();
-        })();
+            const OpenType = require('opentype.js');
+            const ZnJsCaptcha = require('zn-js-captcha');
+            (async function () {
+                let captchaGenerator = ZnJsCaptcha(OpenType, {
+                    fontPath: __dirname + '/node_modules/zn-js-captcha/assets/Marius1.ttf'
+                });
+                let captcha = await captchaGenerator.generate();
+            })();
 
 - In the browser
     + Download this repository into your project directory either by cloning it
@@ -61,22 +61,22 @@ repository. Shell commands, if any, are run from the root of the repository.
     + Sample code (assumes webpage is running same directory level as
       subfolder):
 
-        <script src="node_modules/opentype.js/dist/opentype.min.js"></script>
-        <script src="node_modules/zn-js-captcha/src/index.js"></script>
-        <script>
-            (async function () {
-                // Need to run on web server in order to read the font file
-                let captchaGenerator = ZnJsCaptcha(opentype, {
-                    fontPath: 'node_modules/zn-js-captcha/assets/Marius1.ttf'
-                });
-                let captcha = await captchaGenerator.generate();
+            <script src="node_modules/opentype.js/dist/opentype.min.js"></script>
+            <script src="node_modules/zn-js-captcha/src/index.js"></script>
+            <script>
+                (async function () {
+                    // Need to run on web server in order to read the font file
+                    let captchaGenerator = ZnJsCaptcha(opentype, {
+                        fontPath: 'node_modules/zn-js-captcha/assets/Marius1.ttf'
+                    });
+                    let captcha = await captchaGenerator.generate();
 
-                document.write(
-                    '<img src="data:image/svg+xml;utf8,' + encodeURIComponent(captcha.data) + '">'
-                );
-                console.log('Result: ' + captcha.result);
-            })();
-        </script>
+                    document.write(
+                        '<img src="data:image/svg+xml;utf8,' + encodeURIComponent(captcha.data) + '">'
+                    );
+                    console.log('Result: ' + captcha.result);
+                })();
+            </script>
 
 - Constructor: `ZnJsCaptcha(OpenTypeJs, config)`
     + `OpenTypeJs`: Object returned by OpenType.js library.
