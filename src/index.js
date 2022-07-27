@@ -1,5 +1,5 @@
 /**
- * Render captcha with Math equation in SVG - can be used client-side in browser or server-side in Node.js
+ * Render CAPTCHA with Math equation in SVG - can be used client-side in browser or server-side in Node.js
  *
  * Usage in Node.js:
  *     const OpenType = require('opentype.js');
