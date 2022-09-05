@@ -55,7 +55,7 @@
          *     In "2 + 3", 2 is the augend and 3 is the addend.
          * @property {int} config.mathAugendMax=99 - Maximum number when generating augend for Math equation.
          *     In "2 + 3", 2 is the augend and 3 is the addend.
-         * @property {int} config.mathAddndMin=1 - Minimum number when generating addend for Math equation.
+         * @property {int} config.mathAddendMin=1 - Minimum number when generating addend for Math equation.
          *     In "2 + 3", 2 is the augend and 3 is the addend.
          * @property {int} config.mathAddendMax=99 - Maximum number when generating addend for Math equation.
          *     In "2 + 3", 2 is the augend and 3 is the addend.
